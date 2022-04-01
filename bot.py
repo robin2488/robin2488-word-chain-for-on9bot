@@ -17,7 +17,7 @@ def load_words(chat_id):
     ALL_WORDS[chat_id] = defaultdict(list)
     with open('Words.txt', 'r') as f:
         for line in f.readlines():
-            word = line[:-1]
+            word = line[:-1].upper()
             if only_alpha(word):
                 ALL_WORDS[chat_id][line[0]].append(word)
 
@@ -61,7 +61,7 @@ def choose_word(words):
         return ''
 
 def remove_word(chat_id, word):
-    word = word.lower()
+    word = word.upper()
     if chat_id in ALL_WORDS:
         if word in ALL_WORDS[chat_id][word[0]]:
             ALL_WORDS[chat_id][word[0]].remove(word)
@@ -87,12 +87,12 @@ async def main():
                 forbidden = None
 
                 if ', include' in text:
-                    required = [c[0].lower() for c in line[7:-5]]
+                    required = [c[0].upper() for c in line[7:-5]]
 
                 if 'exclude' in text:
-                    forbidden = [c[0].lower() for c in line[7:-6]]
+                    forbidden = [c[0].upper() for c in line[7:-6]]
 
-                start_letter = line[5][0].lower()
+                start_letter = line[5][0].upper()
                 min_length = line[-2]
 
                 matching = find_words(chat_id, start_letter, min_length, spam_letter, required, forbidden, ban_endings)
