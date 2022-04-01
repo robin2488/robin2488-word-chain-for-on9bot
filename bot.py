@@ -17,7 +17,7 @@ def load_words(chat_id):
     ALL_WORDS[chat_id] = defaultdict(list)
     with open('Words.txt', 'r') as f:
         for line in f.readlines():
-            word = line[:-1].lower()
+            word = line[:-1]
             if only_alpha(word):
                 ALL_WORDS[chat_id][line[0]].append(word)
 
